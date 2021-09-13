@@ -13,5 +13,5 @@ RUN make -j $NPROC sdk && mv -f /buildroot-2021.02.4/output/host /sdk/ && \
 FROM debian:bullseye-slim
 COPY --from=builder /sdk/ /sdk/
 COPY --from=builder /conan.deb /
-RUN dpkg -i /conan.deb
+RUN apt-get update && apt-get install -y cmake && dpkg -i /conan.deb
 ENTRYPOINT ["/sdk/bin/arm-linux-g++"]
